@@ -59,13 +59,15 @@ def is_palindrome(n):
 
 def output_answer(lst_pr):
     lst_pr.reverse()
+    max_number = 0
     r = dict()
+    r[max_number] = ()
     for num_1 in lst_pr:
         for num_2 in lst_pr:
-            result = num_1 * num_2
-            if is_palindrome(result):
-                if result not in r:
-                    r[result] = (num_1, num_2)
+            product = num_1 * num_2
+            if product > max_number and is_palindrome(product):
+                max_number = product
+                r[max_number] = (num_1, num_2)
     greatest_number = max(r.keys())
     return greatest_number, r[greatest_number]
 
