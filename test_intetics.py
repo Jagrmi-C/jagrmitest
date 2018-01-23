@@ -1,3 +1,4 @@
+# python 3.6.3
 import time
 
 
@@ -23,9 +24,7 @@ def list_primes():
     :return: lst - list for prime numbers
     """
     n = 99999 + 1
-    a = [0] * n
-    for i in range(n):
-        a[i] = i
+    a = [i for i in range(n)]
 
     #  Create list for prime numbers
     lst = []
@@ -60,38 +59,35 @@ def is_palindrome(n):
 def output_answer(lst_pr):
     lst_pr.reverse()
     max_number = 0
-    r = dict()
-    r[max_number] = ()
+    factor_1 = 0
+    factor_2 = 0
+
     for num_1 in lst_pr:
         for num_2 in lst_pr:
-            product = num_1 * num_2
-            if product > max_number and is_palindrome(product):
-                max_number = product
-                r[max_number] = (num_1, num_2)
-    greatest_number = max(r.keys())
-    return greatest_number, r[greatest_number]
+            res = num_1 * num_2
+            if res > max_number and is_palindrome(res):
+                max_number = res
+                factor_1 = num_1
+                factor_2 = num_2
+    return max_number, factor_1, factor_2
 
-
-# def list_primes(number_start, number_end):
-#     for i in range(number_start, number_end + 1, 2):
-#         if i % 10 == 5:
-#             continue
 
 if __name__ == "__main__":
     start = time.time()
-    # Get a ;ist of prime numbers
+    # Get a list of prime numbers
     list_output = list_primes()
-    print(time.time() - start)
-    # list_output.append(12)
-    # Checking the list for correctness
-    for i in list_output:
-        if not is_prime(i):
-            print(f"{i} - is not simple numbers")
-            break
-
     # print(list_output)
+    print(f"Time to get the list: {time.time() - start} s.")
+    # Checking the list for correctness
+    d = [i for i in list_output if not is_prime(i)]
+    if d:
+        print(f"{d} - list not prime numbers if they are.")
 
-    biggest_polindrom = output_answer(list_output)
-    # polindrom = output_answer([33211, 30109])
-    print(biggest_polindrom)
-    print(time.time() - start)
+    the_largest_palindrome = output_answer(list_output)
+    answer = f"The largest palindrome is {the_largest_palindrome[0]}. Factors are " \
+             f"{the_largest_palindrome[1]} and {the_largest_palindrome[2]}."
+
+    # Cheking the function output_answer()
+    # palindrome = output_answer([33211, 30109])
+    print(answer)
+    print(f"Time to get the answer: {time.time() - start} s.")
